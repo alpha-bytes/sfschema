@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/alpha-bytes/sfschema/rest/composite/tree/sobjectTreeInput.json",
+    "type": "object",
+    "properties": {
+        "attributes": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "SObject name"
+                },
+                "referenceId": {
+                    "type": "string",
+                    "description": "Reference ID for this record. Must be unique in the context of the request and start with an alphanumeric character.", 
+                    "format": "uuid"
+                }
+            },
+            "required": [ "type", "referenceId"], 
+            "defaultSnippets": [
+                {
+                    "label": "VSCode Snippet", 
+                    "description": "VSCode Snippet", 
+                    "body": { "type": "${1:SObjectName}", "referenceId": "${1:SObjectName}_$RANDOM" }
+                }
+            ]
+        }
+    }, 
+    "patternProperties": {
+        "^[A-Z]([a-z]|[A-Z]|[0-9]|_)+$": { 
+            "$ref": "requestBody.json", 
+            "description": "A child SObject record collection."
+        }
+    },
+    "additionalProperties": true
+}
